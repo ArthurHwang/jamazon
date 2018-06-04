@@ -1,5 +1,6 @@
 const itemsArray = app.catalog.items;
 
+
 //Create Card elements
 const createComponent = element => {
   // Root Element
@@ -61,7 +62,6 @@ const createBulk = array => {
   return mainContainer;
 }
 
-
 //create showpage Element
 const getCatalogItem = element => {
   const mainComponent = document.createElement('div')
@@ -120,3 +120,60 @@ const renderAll = (array) => {
 }
 
 renderAll(itemsArray);
+
+
+const $container = document.querySelector('.container')
+$container.addEventListener('click', (e) => {
+
+})
+
+
+
+
+
+
+
+
+// window.addEventListener('keydown', (e) => {
+//   let target = appState.characters[appState.currentIndex].char
+//   let stateCharacters = appState.characters;
+//   if (e.key === target) {
+//     appState.currentIndex++
+//   }
+//   if (e.key !== target) {
+//     stateCharacters[appState.currentIndex].failures++
+//   }
+//   if (stateCharacters[appState.currentIndex] === undefined) {
+//     gameOver(appState)
+//     clearInterval(interval)
+//     seconds = 30;
+//   }
+//   clearSpans();
+//   renderAll(stateCharacters);
+// })
+//
+
+
+// console.log(e.target.closest('[data-item-id]'));
+
+
+
+// $startButton.addEventListener('click', (e) => {
+//   if (buttonState.counter === 0) {
+//     buttonState.counter++
+//       numbers = 30;
+//     clearInterval(interval);
+//     createTimer();
+//     startTimer();
+//     renderAll(appState.characters)
+//   }
+//   if (buttonState.counter === 1 && appState.currentIndex === appState.characters.length) {
+//     appState.currentIndex = 0;
+//     numbers = 30;
+//     clearInterval(interval)
+//     clearSpans();
+//     clearGameOver();
+//     startTimer();
+//     renderAll(appState.characters)
+//   }
+// })
