@@ -98,7 +98,7 @@ const createComponent = element => {
 
   const imgComponent = document.createElement('img')
   imgComponent.className = 'card-img-top'
-  imgComponent.setAttribute('src', app.catalog.items[0].imageUrl)
+  imgComponent.setAttribute('src', element.imageUrl)
   mainComponent.appendChild(imgComponent);
 
   const bodyComponent = document.createElement('div')
@@ -121,4 +121,23 @@ const createComponent = element => {
   bodyComponent.appendChild(priceComponent);
 
   return mainComponent
+}
+
+const createBulk = catalog => {
+  const mainContainer = document.createElement('div')
+  mainContainer.className = 'container'
+
+  const row = document.createElement('div')
+  row.className = 'row'
+  mainContainer.appendChild(row)
+
+  const rowHeading = document.createElement('h2')
+  rowHeading.textContent = catalog.itemId
+
+  const col = document.createElement('col')
+  col.className = 'col'
+  col.appendChild(createComponent(catalog.items))
+  row.appendChild(col)
+
+  return mainContainer
 }
