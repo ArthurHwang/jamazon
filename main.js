@@ -103,10 +103,11 @@ const getCatalogItem = element => {
   return mainComponent
 }
 
-// const getObject = (itemId, itemArray) => {
-//
-// }
-
+const getObject = (itemId, itemArray) => {
+  return itemArray.filter((elem, index, array) => {
+    return itemId === elem.itemId
+  })
+}
 
 const renderAll = (array) => {
   document.body.appendChild(createBulk(array));
