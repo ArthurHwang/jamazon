@@ -104,7 +104,6 @@ const createComponent = element => {
 
   const mainComponent = document.createElement('div')
   mainComponent.className = 'card border-dark mb-3'
-  // mainComponent.setAttribute('style', 'width:18rem');
 
   const cardHeader = document.createElement('div')
   cardHeader.className = 'card-header card text-white bg-success mb-3'
