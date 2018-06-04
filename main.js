@@ -89,6 +89,7 @@ var app = {
   }
 }
 
+const itemsArray = app.catalog.items
 
 const createComponent = element => {
 
@@ -123,7 +124,7 @@ const createComponent = element => {
   return mainComponent
 }
 
-const createBulk = catalog => {
+const createBulk = array => {
   const mainContainer = document.createElement('div')
   mainContainer.className = 'container'
 
@@ -132,12 +133,17 @@ const createBulk = catalog => {
   mainContainer.appendChild(row)
 
   const rowHeading = document.createElement('h2')
-  rowHeading.textContent = catalog.itemId
+  rowHeading.textContent = "Item #" + array.itemId
 
   const col = document.createElement('col')
   col.className = 'col'
-  col.appendChild(createComponent(catalog.items))
   row.appendChild(col)
-
+  array.forEach((element, index, array) => {
+    col.appendChild(createComponent(element))
+  })
   return mainContainer
+}
+
+const renderAll = (array) => {
+  document.body.appendChild(createBulk(array))
 }
