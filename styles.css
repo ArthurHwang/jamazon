@@ -17,3 +17,24 @@ body {
 .card {
   background-color: #E0E0E0
 }
+
+.center-block {
+  background-size: contain;
+  width: 100%;
+  display:block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container .center-block {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin:auto;
+}
+
+li {
+  font-weight:700;
+  font-size: 1.5rem;
+}
