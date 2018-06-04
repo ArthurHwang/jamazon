@@ -1,24 +1,26 @@
 const itemsArray = app.catalog.items;
 
+//Create Card elements
 const createComponent = element => {
-
+  // Root Element
   const mainComponent = document.createElement('div');
   mainComponent.className = 'card border-dark mb-3';
-
+  mainComponent.setAttribute('data-item-id', element.itemId);
+  // Card Header
   const cardHeader = document.createElement('div');
   cardHeader.className = 'card-header card text-white bg-success mb-3';
   cardHeader.textContent = "Featured Item #" + element.itemId;
   mainComponent.appendChild(cardHeader);
-
+  // Card IMG
   const imgComponent = document.createElement('img');
   imgComponent.className = 'card-img-top';
   imgComponent.setAttribute('src', element.imageUrl);
   mainComponent.appendChild(imgComponent);
-
+  //Card Body
   const bodyComponent = document.createElement('div');
   bodyComponent.className = 'card-body';
   mainComponent.appendChild(bodyComponent);
-
+  // UL element
   const ulComponent = document.createElement('ul');
   ulComponent.classList = 'list-group list-group-flush w-100 align-items-stretch align-self-center';
   const liBrand = document.createElement('li');
@@ -41,6 +43,7 @@ const createComponent = element => {
   return mainComponent
 }
 
+//put cardElements in BootStrap Container
 const createBulk = array => {
   const mainContainer = document.createElement('div');
   mainContainer.className = 'container';
@@ -58,6 +61,8 @@ const createBulk = array => {
   return mainContainer;
 }
 
+
+//create showpage Element
 const getCatalogItem = element => {
   const mainComponent = document.createElement('div')
   mainComponent.className = "container"
@@ -83,7 +88,6 @@ const getCatalogItem = element => {
   const liOrigin = document.createElement('li')
   liOrigin.textContent = element.origin;
 
-
   liBrand.classList = 'list-group-item text-center d-inline-block';
   liName.classList = 'list-group-item text-center d-inline-block';
   liPrice.classList = 'list-group-item text-center d-inline-block';
@@ -103,12 +107,14 @@ const getCatalogItem = element => {
   return mainComponent
 }
 
+//function to return object matching itemId
 const getObject = (itemId, itemArray) => {
   return itemArray.filter((elem, index, array) => {
     return itemId === elem.itemId
   })
 }
 
+//render to page
 const renderAll = (array) => {
   document.body.appendChild(createBulk(array));
 }
