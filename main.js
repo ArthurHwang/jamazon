@@ -116,6 +116,7 @@ const getObject = (itemId, itemArray) => {
 //render to page
 const renderAll = (array) => {
   document.body.appendChild(createBulk(array));
+
 }
 
 renderAll(itemsArray);
@@ -125,6 +126,7 @@ const addHidden = (view) => {
   data.forEach((element, index, array) => {
     if (parseInt(element.getAttribute('data-item-id')) !== view.itemId) {
       data[index].className += ' hidden'
+      // data[index].remove()
     }
   })
 }
@@ -136,6 +138,8 @@ $container.addEventListener('click', (e) => {
     if (parseInt(e.target.closest('[data-item-id]').getAttribute('data-item-id')) === elem.itemId) {
       app.view = app.details;
       app.details.item = getCatalogItem(elem);
+      addHidden(elem)
+      document.body.appendChild(getCatalogItem(elem))
     }
   })
 })
