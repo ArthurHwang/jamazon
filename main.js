@@ -1,6 +1,5 @@
 const itemsArray = app.catalog.items;
 
-
 //Create Card elements
 const createComponent = element => {
   // Root Element
@@ -121,8 +120,12 @@ const renderAll = (array) => {
 
 renderAll(itemsArray);
 
+const $container = document.querySelector('.container');
 
-const $container = document.querySelector('.container')
 $container.addEventListener('click', (e) => {
-  console.log(e.target.closest('[data-item-id]'));
+  itemsArray.forEach((elem) => {   
+    if (parseInt(e.target.closest('[data-item-id]').getAttribute('data-item-id')) === elem.itemId) {     
+     app.view = app.details
+  }
+})
 })
