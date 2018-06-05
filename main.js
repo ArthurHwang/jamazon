@@ -1,26 +1,24 @@
 const itemsArray = app.catalog.items;
 
-//Create Card elements
 const createComponent = element => {
-  // Root Element
   const mainComponent = document.createElement('div');
   mainComponent.className = 'card border-dark mb-3';
   mainComponent.setAttribute('data-item-id', element.itemId);
-  // Card Header
+
   const cardHeader = document.createElement('div');
   cardHeader.className = 'card-header card text-white bg-success mb-3';
   cardHeader.textContent = "Featured Item #" + element.itemId;
   mainComponent.appendChild(cardHeader);
-  // Card IMG
+
   const imgComponent = document.createElement('img');
   imgComponent.className = 'card-img-top';
   imgComponent.setAttribute('src', element.imageUrl);
   mainComponent.appendChild(imgComponent);
-  //Card Body
+
   const bodyComponent = document.createElement('div');
   bodyComponent.className = 'card-body';
   mainComponent.appendChild(bodyComponent);
-  // UL element
+
   const ulComponent = document.createElement('ul');
   ulComponent.classList = 'list-group list-group-flush w-100 align-items-stretch align-self-center';
   const liBrand = document.createElement('li');
@@ -43,7 +41,6 @@ const createComponent = element => {
   return mainComponent
 }
 
-//put cardElements in BootStrap Container
 const createBulk = array => {
   const mainContainer = document.createElement('div');
   mainContainer.className = 'container';
@@ -61,7 +58,6 @@ const createBulk = array => {
   return mainContainer;
 }
 
-//create showpage Element
 const getCatalogItem = element => {
   const mainComponent = document.createElement('div')
   mainComponent.className = "container"
@@ -106,40 +102,61 @@ const getCatalogItem = element => {
   return mainComponent
 }
 
-//function to return object matching itemId
 const getObject = (itemId, itemArray) => {
   return itemArray.filter((elem, index, array) => {
     return itemId === elem.itemId
   })
 }
 
-//render to page
-const renderAll = (array) => {
-  document.body.appendChild(createBulk(array));
-
+const render = (array) => {
+  if (app.view === "catalog") {
+    const renderCatalog = document.querySelector("[data-view='catalog']")
+    renderCatalog.appendChild(createBulk(array))
+  }
+  if (app.view === "details") {
+    const renderDetails = document.querySelector("[data-view='details']")
+    renderDetails.appendChild(createComponent(array))
+    renderDetails.appendChild(getCatalogItem(array))
+  }
 }
 
-renderAll(itemsArray);
+render(itemsArray);
 
 const addHidden = (view) => {
   const data = document.querySelectorAll('[data-item-id]')
   data.forEach((element, index, array) => {
-    if (parseInt(element.getAttribute('data-item-id')) !== view.itemId) {
-      data[index].className += ' hidden'
-      // data[index].remove()
-    }
+    element.style.display = 'none'
   })
 }
 
-//Event Delegation
+const removeHidden = (view) => {
+  const data = document.querySelectorAll('[data-item-id]')
+  data.forEach((element, index, array) => {
+    element.style.display = 'block'
+  }
+)}
+
 const $container = document.querySelector('.container');
+const $catalog = document.querySelector("[data-view='catalog']")
 $container.addEventListener('click', (e) => {
-  itemsArray.forEach((elem) => {
+  itemsArray.forEach((elem, index) => {
     if (parseInt(e.target.closest('[data-item-id]').getAttribute('data-item-id')) === elem.itemId) {
-      app.view = app.details;
-      app.details.item = getCatalogItem(elem);
+      app.view = 'details';
+      app.details.item = getObject(elem.itemId, itemsArray)
       addHidden(elem)
-      document.body.appendChild(getCatalogItem(elem))
+      render(app.details.item[0])
     }
   })
+})
+
+const $details = document.querySelector("[data-view='details']")
+$details.addEventListener('click', (e) => {
+  console.log(e.target)
+  if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block") {
+    app.view = 'catalog'
+    removeHidden()
+    while ($details.firstChild) {
+      $details.removeChild($details.firstChild);
+    }
+  }
 })

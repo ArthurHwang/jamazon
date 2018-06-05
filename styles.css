@@ -9,6 +9,9 @@ body {
   background-color: #4286f4;
 }
 
+h1 {
+  text-align: center;
+}
 .card-img-top {
   height: 15rem;
   object-fit: cover;
@@ -40,5 +43,5 @@ li {
 }
 
 .hidden {
-  background-color: black;
+  opacity: 0;
 }
