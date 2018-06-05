@@ -120,8 +120,9 @@ const renderAll = (array) => {
 
 renderAll(itemsArray);
 
-const $container = document.querySelector('.container');
 
+//Event Delegation
+const $container = document.querySelector('.container');
 $container.addEventListener('click', (e) => {
   itemsArray.forEach((elem) => {   
     if (parseInt(e.target.closest('[data-item-id]').getAttribute('data-item-id')) === elem.itemId) {     
