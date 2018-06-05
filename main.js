@@ -120,14 +120,22 @@ const renderAll = (array) => {
 
 renderAll(itemsArray);
 
+const addHidden = (view) => {
+  const data = document.querySelectorAll('[data-item-id]')
+  data.forEach((element, index, array) => {
+    if (parseInt(element.getAttribute('data-item-id')) !== view.itemId) {
+      data[index].className += ' hidden'
+    }
+  })
+}
 
 //Event Delegation
 const $container = document.querySelector('.container');
 $container.addEventListener('click', (e) => {
-  itemsArray.forEach((elem) => {   
-    if (parseInt(e.target.closest('[data-item-id]').getAttribute('data-item-id')) === elem.itemId) {     
-     app.view = app.details;
-     app.details.item = getCatalogItem(elem);
-  }
-})
+  itemsArray.forEach((elem) => {
+    if (parseInt(e.target.closest('[data-item-id]').getAttribute('data-item-id')) === elem.itemId) {
+      app.view = app.details;
+      app.details.item = getCatalogItem(elem);
+    }
+  })
 })
