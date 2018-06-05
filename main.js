@@ -115,7 +115,6 @@ const render = (array) => {
   }
   if (app.view === "details") {
     const renderDetails = document.querySelector("[data-view='details']")
-    renderDetails.appendChild(createComponent(array))
     renderDetails.appendChild(getCatalogItem(array))
   }
 }
@@ -133,8 +132,8 @@ const removeHidden = (view) => {
   const data = document.querySelectorAll('[data-item-id]')
   data.forEach((element, index, array) => {
     element.style.display = 'block'
-  }
-)}
+  })
+}
 
 const $container = document.querySelector('.container');
 const $catalog = document.querySelector("[data-view='catalog']")
