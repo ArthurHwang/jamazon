@@ -35,13 +35,33 @@ h1 {
   background-position: center center;
   background-repeat: no-repeat;
   margin:auto;
+  height: 50%;
+  width: 50%;
+  background-color: #4286f4;
 }
 
 li {
-  font-weight:700;
-  font-size: 1.5rem;
+  font-weight:400;
+  font-size: 1.3rem;
+  text-align: center;
+  list-style-type: none;
+  background-color: #4286f4;
+}
+
+ul {
+  background-color: #4286f4;
 }
 
 .hidden {
   opacity: 0;
 }
+/* div[data-view="details"] {
+  height: 30%;
+  width: 100%
+}
+
+
+div[data-view="details"] .container {
+  height: 30%;
+  width: 100%
+} */

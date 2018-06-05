@@ -1,105 +1,57 @@
 const itemsArray = app.catalog.items;
 
-const createComponent = element => {
-  const mainComponent = document.createElement('div');
-  mainComponent.className = 'card border-dark mb-3';
-  mainComponent.setAttribute('data-item-id', element.itemId);
-
-  const cardHeader = document.createElement('div');
-  cardHeader.className = 'card-header card text-white bg-success mb-3';
-  cardHeader.textContent = "Featured Item #" + element.itemId;
-  mainComponent.appendChild(cardHeader);
-
-  const imgComponent = document.createElement('img');
-  imgComponent.className = 'card-img-top';
-  imgComponent.setAttribute('src', element.imageUrl);
-  mainComponent.appendChild(imgComponent);
-
-  const bodyComponent = document.createElement('div');
-  bodyComponent.className = 'card-body';
-  mainComponent.appendChild(bodyComponent);
-
-  const ulComponent = document.createElement('ul');
-  ulComponent.classList = 'list-group list-group-flush w-100 align-items-stretch align-self-center';
-  const liBrand = document.createElement('li');
-  liBrand.textContent = element.brand;
-  const liName = document.createElement('li');
-  liName.textContent = element.name;
-  const liPrice = document.createElement('li');
-  liPrice.textContent = '$' + element.price;
-  liPrice.setAttribute('style', 'font-weight:700');
-
-  liBrand.classList = 'list-group-item text-center d-inline-block';
-  liName.classList = 'list-group-item text-center d-inline-block';
-  liPrice.classList = 'list-group-item text-center d-inline-block';
-
-  ulComponent.appendChild(liBrand);
-  ulComponent.appendChild(liName);
-  ulComponent.appendChild(liPrice);
-  bodyComponent.appendChild(ulComponent);
-
-  return mainComponent
+const createElement = (tagName, attributes, children) => {
+  const element = document.createElement(tagName)
+  for (var key in attributes) {
+    element.setAttribute(key, attributes[key])
+  }
+  children.forEach(child => {
+    if (child instanceof Node) {
+      element.appendChild(child)
+    } else {
+      element.textContent = child
+    }
+  })
+  return element
 }
 
-const createBulk = array => {
-  const mainContainer = document.createElement('div');
-  mainContainer.className = 'container';
+const createCard = element => {
+  return createElement('div', {class: "card border-dark mb-3", 'data-item-id': element.itemId}, [
+    createElement('div', {class: "card-header card text-white bg-success mb-3"}, ["Featured Item #" + element.itemId]),
+    createElement('img', {class: "card-img-top", src: element.imageUrl}, []),
+    createElement('div', {class: "card-body"}, [
+      createElement('ul', {class: "list-group list-group-flush w-100 align-items-stretch align-self-center"}, [
+        createElement('li', {}, [element.brand]),
+        createElement('li', {}, [element.name]),
+        createElement('li', {}, ["$" + element.price])
+      ])
+    ])
+  ])
+}
 
-  const row = document.createElement('div');
-  row.className = 'row justify-content-center';
-  mainContainer.appendChild(row);
-
+const showcaseCards = array => {
+  const mainContainer = createElement('div', {class: 'container'}, [])
+  const row = createElement('div', {class: 'row justify-content-center'}, [])
   array.forEach((element) => {
-    const col = document.createElement('div');
-    col.className = 'col-sm-4 py-2 d-flex align-items-stretch';
-    col.appendChild(createComponent(element));
+    const col = createElement('div', {class: 'col-sm-4 py-2 d-flex align-items-stretch'}, [createCard(element)])
     row.appendChild(col);
   })
+  mainContainer.appendChild(row);
   return mainContainer;
 }
 
-const getCatalogItem = element => {
-  const mainComponent = document.createElement('div')
-  mainComponent.className = "container"
-
-  const imgComponent = document.createElement('img');
-  imgComponent.setAttribute('src', element.imageUrl);
-  imgComponent.className = 'center-block'
-  mainComponent.appendChild(imgComponent);
-
-  const ulComponent = document.createElement('ul');
-  ulComponent.classList = 'list-group list-group-flush w-100 align-items-stretch align-self-center';
-  const liBrand = document.createElement('li');
-  liBrand.textContent = element.brand;
-  const liName = document.createElement('li');
-  liName.textContent = element.name;
-  const liPrice = document.createElement('li');
-  liPrice.textContent = '$' + element.price;
-  liPrice.setAttribute('style', 'font-weight:700');
-  const liDescription = document.createElement('li')
-  liDescription.textContent = element.description;
-  const liDetails = document.createElement('li')
-  liDetails.textContent = element.details
-  const liOrigin = document.createElement('li')
-  liOrigin.textContent = element.origin;
-
-  liBrand.classList = 'list-group-item text-center d-inline-block';
-  liName.classList = 'list-group-item text-center d-inline-block';
-  liPrice.classList = 'list-group-item text-center d-inline-block';
-  liDescription.classList = 'list-group-item text-center d-inline-block';
-  liDetails.classList = 'list-group-item text-center d-inline-block';
-  liOrigin.classList = 'list-group-item text-center d-inline-block';
-
-  ulComponent.appendChild(liBrand);
-  ulComponent.appendChild(liName);
-  ulComponent.appendChild(liPrice);
-  ulComponent.appendChild(liDescription);
-  ulComponent.appendChild(liDetails);
-  ulComponent.appendChild(liOrigin);
-
-  mainComponent.appendChild(ulComponent);
-
-  return mainComponent
+const showcaseDetails = element => {
+  return createElement('div', {class: 'container'}, [
+    createElement('img', {class: 'center-block', src: element.imageUrl}, []),
+    createElement('ul', {class: 'list-group list-group-flush w-100 align-items-stretch align-self-center'}, [
+      createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.brand]),
+      createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.name]),
+      createElement('li', {class: 'list-group-item text-center d-inline-block'}, ["$" + element.price]),
+      createElement('li', {class: 'list-group-item text-center d-inline-block'}, ["$" + element.description]),
+      createElement('li', {class: 'list-group-item text-center d-inline-block'}, ["$" + element.details]),
+      createElement('li', {class: 'list-group-item text-center d-inline-block'}, ["$" + element.origin]),
+    ])
+  ])
 }
 
 const getObject = (itemId, itemArray) => {
@@ -111,24 +63,24 @@ const getObject = (itemId, itemArray) => {
 const render = (array) => {
   if (app.view === "catalog") {
     const renderCatalog = document.querySelector("[data-view='catalog']")
-    renderCatalog.appendChild(createBulk(array))
+    renderCatalog.appendChild(showcaseCards(array))
   }
   if (app.view === "details") {
     const renderDetails = document.querySelector("[data-view='details']")
-    renderDetails.appendChild(getCatalogItem(array))
+    renderDetails.appendChild(showcaseDetails(array))
   }
 }
 
 render(itemsArray);
 
-const addHidden = (view) => {
+const addHidden = () => {
   const data = document.querySelectorAll('[data-item-id]')
   data.forEach((element, index, array) => {
     element.style.display = 'none'
   })
 }
 
-const removeHidden = (view) => {
+const removeHidden = () => {
   const data = document.querySelectorAll('[data-item-id]')
   data.forEach((element, index, array) => {
     element.style.display = 'block'
@@ -142,7 +94,7 @@ $container.addEventListener('click', (e) => {
     if (parseInt(e.target.closest('[data-item-id]').getAttribute('data-item-id')) === elem.itemId) {
       app.view = 'details';
       app.details.item = getObject(elem.itemId, itemsArray)
-      addHidden(elem)
+      addHidden()
       render(app.details.item[0])
     }
   })
@@ -150,7 +102,6 @@ $container.addEventListener('click', (e) => {
 
 const $details = document.querySelector("[data-view='details']")
 $details.addEventListener('click', (e) => {
-  console.log(e.target)
   if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block") {
     app.view = 'catalog'
     removeHidden()
