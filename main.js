@@ -117,8 +117,11 @@ $container.addEventListener('click', (e) => {
 const $details = document.querySelector("[data-view='details']")
 $details.addEventListener('click', (e) => {
   if (e.target.className === "cart-button") {
-    
-
+    if (app.cart.items === null) {
+      app.cart.items = app.details.item
+    } else {
+      app.cart.items.push(app.details.item)
+    }
     }
   if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block") {
     app.view = 'catalog'
