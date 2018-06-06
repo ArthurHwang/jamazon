@@ -55,13 +55,15 @@ ul {
 .hidden {
   opacity: 0;
 }
-/* div[data-view="details"] {
-  height: 30%;
-  width: 100%
+
+.cart-wrapper {
+  text-align: right;
 }
 
+.cart-item-count {
+  font-size: 50px;
+  color: red;
+  margin-right: 80px;
+  margin-bottom: 50px;
 
-div[data-view="details"] .container {
-  height: 30%;
-  width: 100%
-} */
+}

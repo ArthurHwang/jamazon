@@ -42,7 +42,6 @@ const showcaseCards = array => {
 
 const showcaseDetails = element => {
   return createElement('div', {class: 'container'}, [
-
     createElement('img', {class: 'center-block', src: element.imageUrl}, []),
     createElement('ul', {class: 'list-group list-group-flush w-100 align-items-stretch align-self-center'}, [
       createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.brand]),
@@ -62,8 +61,6 @@ const getObject = (itemId, itemArray) => {
   })
 }
 
-
-
 const addHidden = () => {
   const data = document.querySelectorAll('[data-item-id]')
   data.forEach((element, index, array) => {
@@ -79,23 +76,23 @@ const removeHidden = () => {
 }
 
 const cartCount = (cartItem) => {
-  return createElement('div', {}, [
-    createElement('div', {}, [cartItem])
+  return createElement('div', {class: 'cart-wrapper'}, [
+    createElement('div', {class:'cart-item-count'}, [cartItem])
   ])
 }
 
 const render = (array) => {
   if (app.view === "catalog") {
+    const enclosure = document.getElementById('app')
     const renderCatalog = document.querySelector("[data-view='catalog']")
     const appCart = document.getElementById('app-cart')
     renderCatalog.appendChild(showcaseCards(array))
-    appCart.appendChild(cartCount(app.cart.items))
+    enclosure.appendChild(cartCount("items in cart: " + app.cart.items.length))
   }
   if (app.view === "details") {
     const renderDetails = document.querySelector("[data-view='details']")
     const appCart = document.getElementById('app-cart')
     renderDetails.appendChild(showcaseDetails(array))
-    appCart.appendChild(cartCount(app.cart.items))
   }
 }
 
@@ -117,11 +114,13 @@ $container.addEventListener('click', (e) => {
 const $details = document.querySelector("[data-view='details']")
 $details.addEventListener('click', (e) => {
   if (e.target.className === "cart-button") {
+    const number = document.querySelector('.cart-item-count')
     if (app.cart.items === null) {
       app.cart.items = app.details.item
     } else {
       app.cart.items.push(app.details.item)
     }
+    number.textContent = "items in cart: " + app.cart.items.length
     }
   if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block") {
     app.view = 'catalog'
