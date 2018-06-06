@@ -42,15 +42,17 @@ const showcaseCards = array => {
 
 const showcaseDetails = element => {
   return createElement('div', {class: 'container'}, [
+
     createElement('img', {class: 'center-block', src: element.imageUrl}, []),
     createElement('ul', {class: 'list-group list-group-flush w-100 align-items-stretch align-self-center'}, [
       createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.brand]),
       createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.name]),
       createElement('li', {class: 'list-group-item text-center d-inline-block'}, ["$" + element.price]),
-      createElement('li', {class: 'list-group-item text-center d-inline-block'}, ["$" + element.description]),
-      createElement('li', {class: 'list-group-item text-center d-inline-block'}, ["$" + element.details]),
-      createElement('li', {class: 'list-group-item text-center d-inline-block'}, ["$" + element.origin]),
-    ])
+      createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.description]),
+      createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.details]),
+      createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.origin])
+    ]),
+    createElement('button', {class: 'cart-button'}, ['Add To Cart']),
   ])
 }
 
@@ -85,7 +87,7 @@ const cartCount = (cartItem) => {
 const render = (array) => {
   if (app.view === "catalog") {
     const renderCatalog = document.querySelector("[data-view='catalog']")
-    const appCart = document.getElementById('app-cart')    
+    const appCart = document.getElementById('app-cart')
     renderCatalog.appendChild(showcaseCards(array))
     appCart.appendChild(cartCount(app.cart.items))
   }
