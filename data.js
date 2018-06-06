@@ -97,6 +97,6 @@ const app = {
     item: null
   },
   cart: {
-    items: null
+    items: 5
   }
 }
