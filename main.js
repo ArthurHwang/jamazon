@@ -116,6 +116,9 @@ $container.addEventListener('click', (e) => {
 
 const $details = document.querySelector("[data-view='details']")
 $details.addEventListener('click', (e) => {
+  if (e.target.className === "cart-button") {
+    
+  }
   if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block") {
     app.view = 'catalog'
     removeHidden()
