@@ -60,18 +60,7 @@ const getObject = (itemId, itemArray) => {
   })
 }
 
-const render = (array) => {
-  if (app.view === "catalog") {
-    const renderCatalog = document.querySelector("[data-view='catalog']")
-    renderCatalog.appendChild(showcaseCards(array))
-  }
-  if (app.view === "details") {
-    const renderDetails = document.querySelector("[data-view='details']")
-    renderDetails.appendChild(showcaseDetails(array))
-  }
-}
 
-render(itemsArray);
 
 const addHidden = () => {
   const data = document.querySelectorAll('[data-item-id]')
@@ -89,9 +78,26 @@ const removeHidden = () => {
 
 const cartCount = (cartItem) => {
   return createElement('div', {}, [
-    createElement('div', {}, [cartItem.items])
+    createElement('div', {}, [cartItem])
   ])
 }
+
+const render = (array) => {
+  if (app.view === "catalog") {
+    const renderCatalog = document.querySelector("[data-view='catalog']")
+    const appCart = document.getElementById('app-cart')    
+    renderCatalog.appendChild(showcaseCards(array))
+    appCart.appendChild(cartCount(app.cart.items))
+  }
+  if (app.view === "details") {
+    const renderDetails = document.querySelector("[data-view='details']")
+    const appCart = document.getElementById('app-cart')
+    renderDetails.appendChild(showcaseDetails(array))
+    appCart.appendChild(cartCount(app.cart.items))
+  }
+}
+
+render(itemsArray);
 
 const $container = document.querySelector('.container');
 const $catalog = document.querySelector("[data-view='catalog']")
