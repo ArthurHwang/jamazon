@@ -87,6 +87,12 @@ const removeHidden = () => {
   })
 }
 
+const cartCount = (cartItem) => {
+  return createElement('div', {}, [
+    createElement('div', {}, [cartItem.items])
+  ])
+}
+
 const $container = document.querySelector('.container');
 const $catalog = document.querySelector("[data-view='catalog']")
 $container.addEventListener('click', (e) => {
