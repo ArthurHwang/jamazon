@@ -121,13 +121,11 @@ const render = (array) => {
   if (app.view === "catalog") {
     const enclosure = document.getElementById('app')
     const renderCatalog = document.querySelector("[data-view='catalog']")
-    // const appCart = document.getElementById('app-cart')
     renderCatalog.appendChild(showcaseCards(array))
     enclosure.appendChild(cartCount("Items in cart: " + app.cart.items.length))
   }
   if (app.view === "details") {
     const renderDetails = document.querySelector("[data-view='details']")
-    // const appCart = document.getElementById('app-cart')
     renderDetails.appendChild(showcaseDetails(array))
   }
   if (app.view === "cart") {
