@@ -69,7 +69,8 @@ const createCartCard = element => {
 
 const showcaseCart = array => {
   const cartContainer = createElement('div', {class: 'container'}, [
-    createElement('h1', {class: "cart-title ion-ios-cart"}, ["Your Cart Items"])
+    createElement('h1', {class: "cart-title ion-ios-cart"}, ["Your Cart Items"]),
+    createElement('button', { class: 'ion-bag continue-shopping-cart' }, ['Continue Shopping'])
   ])
   array.forEach((element) => {
     const cartCard = createElement('div', { class: 'cart-card' }, [createCartCard(element)])

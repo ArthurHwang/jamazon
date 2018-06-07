@@ -185,3 +185,20 @@ i {
 .cart-card ul {
   padding-left: 0;
 }
+
+.continue-shopping-cart {
+  display: block;
+  background-color: #1976D2;
+  border: none;
+  width: 100%;
+  height: 50px;
+  float: right;
+  font-weight: 700;
+  color: #FF9800;
+}
+
+div[data-view="cart"] .cart-title {
+  margin: 0;
+  border: none;
+  border-bottom: 2px solid black;
+}
