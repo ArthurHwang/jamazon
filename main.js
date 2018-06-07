@@ -52,7 +52,7 @@ const showcaseDetails = element => {
       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.origin])
     ]),
     createElement('button', { class: 'cart-button' }, ['Add To Cart']),
-    createElement('button', { class: 'continue-shopping ion-bag' }, ['Continue Shopping']),
+    createElement('button', { class: 'ion-bag continue-shopping' }, ['Continue Shopping']),
   ])
 }
 
@@ -123,7 +123,7 @@ $details.addEventListener('click', (e) => {
     }
     number.textContent = "Items in cart: " + app.cart.items.length
   }
-  if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block") {
+  if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block" || e.target.className === "ion-bag continue-shopping") {
     app.view = 'catalog';
     removeHidden()
     while ($details.firstChild) {
