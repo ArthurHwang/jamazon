@@ -17,7 +17,7 @@ const createElement = (tagName, attributes, children) => {
 
 const createCard = element => {
   return createElement('div', {class: "card border-dark mb-3", 'data-item-id': element.itemId}, [
-    createElement('div', {class: "card-header card text-white bg-success mb-3"}, ["Featured Item #" + element.itemId]),
+    createElement('div', {class: "card-header card text-white bg-primary mb-3"}, ["Featured Item #" + element.itemId]),
     createElement('img', {class: "card-img-top", src: element.imageUrl}, []),
     createElement('div', {class: "card-body"}, [
       createElement('ul', {class: "list-group list-group-flush w-100 align-items-stretch align-self-center"}, [
