@@ -112,7 +112,7 @@ $container.addEventListener('click', (e) => {
   })
 })
 
-const $details = document.querySelector("[data-view='details']")
+const $details = document.querySelector("[data-view='details']");
 $details.addEventListener('click', (e) => {
   if (e.target.className === "cart-button") {
     const number = document.querySelector('.cart-item-count')
