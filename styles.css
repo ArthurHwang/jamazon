@@ -172,3 +172,16 @@ i {
   color: #FF9800;
   margin-right: 20px;
 }
+
+.cart-card {
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  text-align: center;
+  width: 50%;
+  float:left;
+}
+
+.cart-card ul {
+  padding-left: 0;
+}

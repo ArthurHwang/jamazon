@@ -69,7 +69,7 @@ const createCartCard = element => {
 
 const showcaseCart = array => {
   const cartContainer = createElement('div', {class: 'container'}, [
-    createElement('h1', {class: "cart-title"}, ["Your Cart Items"])
+    createElement('h1', {class: "cart-title ion-ios-cart"}, ["Your Cart Items"])
   ])
   array.forEach((element) => {
     const cartCard = createElement('div', { class: 'cart-card' }, [createCartCard(element)])
@@ -108,14 +108,18 @@ const render = (array) => {
   if (app.view === "catalog") {
     const enclosure = document.getElementById('app')
     const renderCatalog = document.querySelector("[data-view='catalog']")
-    const appCart = document.getElementById('app-cart')
+    // const appCart = document.getElementById('app-cart')
     renderCatalog.appendChild(showcaseCards(array))
     enclosure.appendChild(cartCount("Items in cart: " + app.cart.items.length))
   }
   if (app.view === "details") {
     const renderDetails = document.querySelector("[data-view='details']")
-    const appCart = document.getElementById('app-cart')
+    // const appCart = document.getElementById('app-cart')
     renderDetails.appendChild(showcaseDetails(array))
+  }
+  if (app.view === "cart") {
+    const renderCart = document.querySelector("[data-view='cart']")
+    renderCart.appendChild(showcaseCart(array))
   }
 }
 
@@ -153,4 +157,32 @@ $details.addEventListener('click', (e) => {
       $details.removeChild($details.firstChild);
     }
   }
+})
+
+const $cartWrapper = document.querySelector("[data-view='cart']")
+$cartWrapper.addEventListener('click', (e) => {
+  if (e.target.className === "card-img-top" || "card-text" || "cart" || "card-title") {
+    app.view = 'catalog'
+    removeHidden()
+    while ($details.firstChild) {
+      $details.removeChild($details.firstChild);
+    }
+    while($cartWrapper.firstChild) {
+      $cartWrapper.removeChild($cartWrapper.firstChild)
+    }
+  }
+
+})
+
+const $showCart = document.querySelector('[class="cart-item-count ion-ios-cart"]')
+$showCart.addEventListener('click', (e) => {
+  if (e.target.className === "cart-item-count ion-ios-cart") {
+    app.view = 'cart'
+    addHidden()
+    while ($details.firstChild) {
+      $details.removeChild($details.firstChild);
+    }
+    render(cartArray)
+  }
+  console.log(e.target)
 })
