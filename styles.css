@@ -32,7 +32,7 @@ h1 {
 
 div[data-view="details"] {
   margin-top: 50px;
-  margin-bottom: 281px;
+  /* margin-bottom: 600px; */
 }
 
 .container .center-block {
@@ -77,6 +77,7 @@ li {
 .cart-wrapper {
   text-align: right;
   background-color: #A1887F;
+  margin-top: 644px;
 }
 
 .cart-item-count {
@@ -125,34 +126,27 @@ footer {
   float: right;
 }
 
-.social-links li a:link,
-.social-links li a:visited {
+.social-links li a:link, .social-links li a:visited {
   font-size: 160%;
 }
 
-.footer-nav li,
-.social-links li {
+.footer-nav li, .social-links li {
   display: inline-block;
   margin-right: 20px;
 }
 
-.footer-nav li:last-child,
-.social-links li:last-child {
+.footer-nav li:last-child, .social-links li:last-child {
   margin: 0;
 }
 
-.footer-nav li a:link,
-.footer-nav li a:visited,
-.social-links li a:link,
-.social-links li a:visited {
+.footer-nav li a:link, .footer-nav li a:visited, .social-links li a:link, .social-links li a:visited {
   text-decoration: none;
   border: 0;
   color: #FAFAFA;
   transition: color 0.2s;
 }
 
-.footer-nav li a:hover,
-.footer-nav li a:active {
+.footer-nav li a:hover, .footer-nav li a:active {
   color: #FF9800;
 }
 

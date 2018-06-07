@@ -52,6 +52,7 @@ const showcaseDetails = element => {
       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.origin])
     ]),
     createElement('button', { class: 'cart-button' }, ['Add To Cart']),
+    createElement('button', { class: 'continue-shopping ion-bag' }, ['Continue Shopping']),
   ])
 }
 
@@ -77,7 +78,7 @@ const removeHidden = () => {
 
 const cartCount = (cartItem) => {
   return createElement('div', { class: 'cart-wrapper' }, [
-    createElement('div', { class: 'cart-item-count' }, [cartItem])
+    createElement('div', { class: 'cart-item-count ion-ios-cart' }, [cartItem])
   ])
 }
 
