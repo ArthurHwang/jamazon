@@ -1,4 +1,5 @@
 const itemsArray = app.catalog.items;
+let cartArray;
 
 const createElement = (tagName, attributes, children) => {
   const element = document.createElement(tagName)
@@ -55,6 +56,33 @@ const showcaseDetails = element => {
     createElement('button', { class: 'ion-bag continue-shopping' }, ['Continue Shopping']),
   ])
 }
+
+const createCartCard = element => {
+  return createElement('div', { class: "card mb-3", 'data-item-id': element.itemId }, [
+    createElement('img', { class: "card-img-top", src: element.imageUrl }, []),
+    createElement('div', { class: "card-body" }, [
+      createElement('ul', { class: "card-title" }, [element.name]),
+      createElement('ul', { class: "card-text" }, [element.brand]),
+      createElement('ul', { class: "card-text ion-social-bitcoin-outline" }, [element.price])
+    ]),
+  ])
+}
+
+// const showcaseCart = element => {
+//   return createElement('div', { class: 'container' }, [
+//     createElement('img', { class: 'center-block', src: element.imageUrl }, []),
+//     createElement('ul', { class: 'list-group list-group-flush w-80 align-items-stretch align-self-center', id: 'details-text-box' }, [
+//       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.brand]),
+//       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.name]),
+//       createElement('li', { class: 'list-group-item text-center d-inline-block ion-social-bitcoin' }, [element.price]),
+//       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.description]),
+//       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.details]),
+//       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.origin])
+//     ]),
+//     createElement('button', { class: 'cart-button' }, ['Add To Cart']),
+//     createElement('button', { class: 'ion-bag continue-shopping' }, ['Continue Shopping']),
+//   ])
+// }
 
 const getObject = (itemId, itemArray) => {
   return itemArray.filter((elem, index, array) => {
@@ -122,6 +150,7 @@ $details.addEventListener('click', (e) => {
       app.cart.items.push(app.details.item)
     }
     number.textContent = "Items in cart: " + app.cart.items.length
+    cartArray = app.cart.items.reduce((acc, val) => acc.concat(val), [])
   }
   if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block" || e.target.className === "ion-bag continue-shopping") {
     app.view = 'catalog';
