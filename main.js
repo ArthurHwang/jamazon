@@ -67,6 +67,14 @@ const createCartCard = element => {
   ])
 }
 
+const getItemTotal = (array) => {
+  let counter = 0
+  array.forEach(elem => {
+    counter += elem.price
+  })
+  return counter;
+}
+
 const showcaseCart = array => {
   const cartContainer = createElement('div', {class: 'container'}, [
     createElement('h1', {class: "cart-title ion-ios-cart"}, ["Your Cart Items"]),
@@ -76,6 +84,10 @@ const showcaseCart = array => {
     const cartCard = createElement('div', { class: 'cart-card' }, [createCartCard(element)])
     cartContainer.appendChild(cartCard)
   })
+  const itemTotalCount = createElement('div', {class: 'item-total ion-pound'}, ["Total Items: " + cartArray.length])
+  const itemTotalPrice = createElement('div', {class: 'item-total ion-social-bitcoin-outline'}, ["Sub-Total: " + getItemTotal(cartArray)])
+  cartContainer.appendChild(itemTotalCount)
+  cartContainer.appendChild(itemTotalPrice)
   return cartContainer;
 }
 
@@ -172,7 +184,6 @@ $cartWrapper.addEventListener('click', (e) => {
       $cartWrapper.removeChild($cartWrapper.firstChild)
     }
   }
-
 })
 
 const $showCart = document.querySelector('[class="cart-item-count ion-ios-cart"]')

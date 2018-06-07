@@ -179,7 +179,7 @@ i {
   background-repeat: no-repeat;
   text-align: center;
   width: 50%;
-  float:left;
+  float: left;
 }
 
 .cart-card ul {
@@ -201,4 +201,25 @@ div[data-view="cart"] .cart-title {
   margin: 0;
   border: none;
   border-bottom: 2px solid black;
+}
+
+div[class="item-total ion-pound"] {
+  display: block;
+  background-color: #1976D2;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  color: #FF9800;
+  font-size: 1.8rem;
+}
+
+div[class="item-total ion-social-bitcoin-outline"] {
+  display: block;
+  background-color: #1976D2;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  color: #FF9800;
+  font-size: 1.8rem;
+  margin-bottom: 200px;
 }
