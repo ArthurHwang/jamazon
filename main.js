@@ -16,24 +16,24 @@ const createElement = (tagName, attributes, children) => {
 }
 
 const createCard = element => {
-  return createElement('div', {class: "card border-dark mb-3", 'data-item-id': element.itemId}, [
-    createElement('div', {class: "card-header card text-white bg-primary mb-3"}, ["Featured Item #" + element.itemId]),
-    createElement('img', {class: "card-img-top", src: element.imageUrl}, []),
-    createElement('div', {class: "card-body"}, [
-      createElement('ul', {class: "list-group list-group-flush w-100 align-items-stretch align-self-center"}, [
+  return createElement('div', { class: "card mb-3", 'data-item-id': element.itemId }, [
+    createElement('div', { class: "card-header card text-white bg-primary mb-3 ion-ios-pricetag-outline" }, ["Featured Item #" + element.itemId]),
+    createElement('img', { class: "card-img-top", src: element.imageUrl }, []),
+    createElement('div', { class: "card-body" }, [
+      createElement('ul', { class: "list-group list-group-flush w-100 align-items-stretch align-self-center" }, [
         createElement('li', {}, [element.brand]),
         createElement('li', {}, [element.name]),
-        createElement('li', {}, ["$" + element.price])
+        createElement('li', { class: "ion-social-bitcoin-outline" }, [+element.price])
       ])
     ])
   ])
 }
 
 const showcaseCards = array => {
-  const mainContainer = createElement('div', {class: 'container'}, [])
-  const row = createElement('div', {class: 'row justify-content-center'}, [])
+  const mainContainer = createElement('div', { class: 'container' }, [])
+  const row = createElement('div', { class: 'row justify-content-center' }, [])
   array.forEach((element) => {
-    const col = createElement('div', {class: 'col-sm-4 py-2 d-flex align-items-stretch'}, [createCard(element)])
+    const col = createElement('div', { class: 'col-sm-4 py-2 d-flex align-items-stretch' }, [createCard(element)])
     row.appendChild(col);
   })
   mainContainer.appendChild(row);
@@ -41,17 +41,17 @@ const showcaseCards = array => {
 }
 
 const showcaseDetails = element => {
-  return createElement('div', {class: 'container'}, [
-    createElement('img', {class: 'center-block', src: element.imageUrl}, []),
-    createElement('ul', {class: 'list-group list-group-flush w-100 align-items-stretch align-self-center'}, [
-      createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.brand]),
-      createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.name]),
-      createElement('li', {class: 'list-group-item text-center d-inline-block'}, ["$" + element.price]),
-      createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.description]),
-      createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.details]),
-      createElement('li', {class: 'list-group-item text-center d-inline-block'}, [element.origin])
+  return createElement('div', { class: 'container' }, [
+    createElement('img', { class: 'center-block', src: element.imageUrl }, []),
+    createElement('ul', { class: 'list-group list-group-flush w-80 align-items-stretch align-self-center', id: 'details-text-box' }, [
+      createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.brand]),
+      createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.name]),
+      createElement('li', { class: 'list-group-item text-center d-inline-block ion-social-bitcoin' }, [element.price]),
+      createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.description]),
+      createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.details]),
+      createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.origin])
     ]),
-    createElement('button', {class: 'cart-button'}, ['Add To Cart']),
+    createElement('button', { class: 'cart-button' }, ['Add To Cart']),
   ])
 }
 
@@ -76,8 +76,8 @@ const removeHidden = () => {
 }
 
 const cartCount = (cartItem) => {
-  return createElement('div', {class: 'cart-wrapper'}, [
-    createElement('div', {class:'cart-item-count'}, [cartItem])
+  return createElement('div', { class: 'cart-wrapper' }, [
+    createElement('div', { class: 'cart-item-count' }, [cartItem])
   ])
 }
 
@@ -87,7 +87,7 @@ const render = (array) => {
     const renderCatalog = document.querySelector("[data-view='catalog']")
     const appCart = document.getElementById('app-cart')
     renderCatalog.appendChild(showcaseCards(array))
-    enclosure.appendChild(cartCount("items in cart: " + app.cart.items.length))
+    enclosure.appendChild(cartCount("Items in cart: " + app.cart.items.length))
   }
   if (app.view === "details") {
     const renderDetails = document.querySelector("[data-view='details']")
@@ -120,8 +120,8 @@ $details.addEventListener('click', (e) => {
     } else {
       app.cart.items.push(app.details.item)
     }
-    number.textContent = "items in cart: " + app.cart.items.length
-    }
+    number.textContent = "Items in cart: " + app.cart.items.length
+  }
   if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block") {
     app.view = 'catalog'
     removeHidden()
