@@ -124,7 +124,7 @@ $details.addEventListener('click', (e) => {
     number.textContent = "Items in cart: " + app.cart.items.length
   }
   if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block") {
-    app.view = 'catalog'
+    app.view = 'catalog';
     removeHidden()
     while ($details.firstChild) {
       $details.removeChild($details.firstChild);
