@@ -7,7 +7,7 @@ const createElement = (tagName, attributes, children) => {
   }
   children.forEach(child => {
     if (child instanceof Node) {
-      element.appendChild(child)
+      element.appendChild(child);
     } else {
       element.textContent = child
     }
@@ -52,6 +52,7 @@ const showcaseDetails = element => {
       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.origin])
     ]),
     createElement('button', { class: 'cart-button' }, ['Add To Cart']),
+    createElement('button', { class: 'ion-bag continue-shopping' }, ['Continue Shopping']),
   ])
 }
 
@@ -77,7 +78,7 @@ const removeHidden = () => {
 
 const cartCount = (cartItem) => {
   return createElement('div', { class: 'cart-wrapper' }, [
-    createElement('div', { class: 'cart-item-count' }, [cartItem])
+    createElement('div', { class: 'cart-item-count ion-ios-cart' }, [cartItem])
   ])
 }
 
@@ -111,7 +112,7 @@ $container.addEventListener('click', (e) => {
   })
 })
 
-const $details = document.querySelector("[data-view='details']")
+const $details = document.querySelector("[data-view='details']");
 $details.addEventListener('click', (e) => {
   if (e.target.className === "cart-button") {
     const number = document.querySelector('.cart-item-count')
@@ -122,8 +123,8 @@ $details.addEventListener('click', (e) => {
     }
     number.textContent = "Items in cart: " + app.cart.items.length
   }
-  if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block") {
-    app.view = 'catalog'
+  if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block" || e.target.className === "ion-bag continue-shopping") {
+    app.view = 'catalog';
     removeHidden()
     while ($details.firstChild) {
       $details.removeChild($details.firstChild);
