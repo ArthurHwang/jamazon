@@ -56,10 +56,9 @@ const showcaseDetails = element => {
     createElement('button', { class: 'ion-bag continue-shopping' }, ['Continue Shopping']),
   ])
 }
-
 const createCartCard = element => {
   return createElement('div', { class: "card mb-3", 'data-item-id': element.itemId }, [
-    createElement('img', { class: "card-img-top", src: element.imageUrl }, []),
+    createElement('img', { class: "card-img-top", src: element.imageUrl }, [""]),
     createElement('div', { class: "card-body" }, [
       createElement('ul', { class: "card-title" }, [element.name]),
       createElement('ul', { class: "card-text" }, [element.brand]),
@@ -68,21 +67,16 @@ const createCartCard = element => {
   ])
 }
 
-// const showcaseCart = element => {
-//   return createElement('div', { class: 'container' }, [
-//     createElement('img', { class: 'center-block', src: element.imageUrl }, []),
-//     createElement('ul', { class: 'list-group list-group-flush w-80 align-items-stretch align-self-center', id: 'details-text-box' }, [
-//       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.brand]),
-//       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.name]),
-//       createElement('li', { class: 'list-group-item text-center d-inline-block ion-social-bitcoin' }, [element.price]),
-//       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.description]),
-//       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.details]),
-//       createElement('li', { class: 'list-group-item text-center d-inline-block' }, [element.origin])
-//     ]),
-//     createElement('button', { class: 'cart-button' }, ['Add To Cart']),
-//     createElement('button', { class: 'ion-bag continue-shopping' }, ['Continue Shopping']),
-//   ])
-// }
+const showcaseCart = array => {
+  const cartContainer = createElement('div', {class: 'container'}, [
+    createElement('h1', {class: "cart-title"}, ["Your Cart Items"])
+  ])
+  array.forEach((element) => {
+    const cartCard = createElement('div', { class: 'cart-card' }, [createCartCard(element)])
+    cartContainer.appendChild(cartCard)
+  })
+  return cartContainer;
+}
 
 const getObject = (itemId, itemArray) => {
   return itemArray.filter((elem, index, array) => {
