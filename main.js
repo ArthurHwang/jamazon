@@ -7,7 +7,7 @@ const createElement = (tagName, attributes, children) => {
   }
   children.forEach(child => {
     if (child instanceof Node) {
-      element.appendChild(child)
+      element.appendChild(child);
     } else {
       element.textContent = child
     }
