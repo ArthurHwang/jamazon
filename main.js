@@ -67,12 +67,44 @@ const createCartCard = element => {
   ])
 }
 
+
+
 const getItemTotal = (array) => {
   let counter = 0
   array.forEach(elem => {
     counter += elem.price
   })
   return counter;
+}
+
+const createCheckoutDetails = element => {
+  return createElement('h2', { class: "checkout-item" }, [element.brand + " " + element.name + ":  $" + element.price])
+}
+
+const showcaseCheckout = array => {
+
+  const cartContainer1 = createElement('div', {class: 'shipping-cc'} , [
+    createElement('input', {class: 'credit-card', placeholder: 'Enter your Credit Card #'}, []),
+    createElement('input', {class: 'shipping', placeholder: 'Enter Name'}, []),
+    createElement('input', {class: 'shipping', placeholder: 'Enter Street Address'}, []),
+    createElement('input', {class: 'shipping', placeholder: 'Enter City'}, []),
+    createElement('input', {class: 'shipping', placeholder: 'Enter Postal Code'}, [])
+  ])
+  const checkoutContainer = createElement('div', {class: "container"}, [
+    createElement('h1', {}, ["Checkout Page"])
+  ])
+  array.forEach((element) => {
+    const checkoutItem = createElement('div', {class: 'showcase-checkout'}, [createCheckoutDetails(element)])
+    checkoutContainer.appendChild(checkoutItem)
+  })
+  const itemTotalCount = createElement('div', {class: 'item-total ion-pound'}, ["Total Items: " + array.length])
+  const itemTotalPrice = createElement('div', {class: 'item-total ion-social-bitcoin-outline'}, ["Total: " + getItemTotal(cartArray)])
+  const submitCheckout = createElement('button', { class: 'submit-checkout'}, ["Checkout!"])
+  checkoutContainer.appendChild(itemTotalCount)
+  checkoutContainer.appendChild(itemTotalPrice);
+  checkoutContainer.appendChild(submitCheckout)
+  cartContainer1.appendChild(checkoutContainer)
+  return cartContainer1
 }
 
 const showcaseCart = array => {
@@ -90,6 +122,9 @@ const showcaseCart = array => {
   cartContainer.appendChild(itemTotalCount)
   cartContainer.appendChild(itemTotalPrice)
   cartContainer.appendChild(checkoutButton)
+
+
+
   return cartContainer;
 }
 
@@ -133,6 +168,10 @@ const render = (array) => {
   if (app.view === "cart") {
     const renderCart = document.querySelector("[data-view='cart']")
     renderCart.appendChild(showcaseCart(array))
+  }
+  if (app.view === "checkout") {
+    const renderCheckout = document.querySelector("[data-view='checkout']")
+    renderCheckout.appendChild(showcaseCheckout(array))
   }
 }
 
@@ -186,7 +225,6 @@ $cartWrapper.addEventListener('click', (e) => {
   }
   if (e.target.className === "checkout-button ion-checkmark-circled") {
     app.view = 'checkout'
-
     removeHidden()
     while ($details.firstChild) {
       $details.removeChild($details.firstChild);
@@ -194,6 +232,8 @@ $cartWrapper.addEventListener('click', (e) => {
     while($cartWrapper.firstChild) {
       $cartWrapper.removeChild($cartWrapper.firstChild)
     }
+    addHidden()
+    render(cartArray)
   }
 })
 
@@ -208,3 +248,9 @@ $showCart.addEventListener('click', (e) => {
     render(cartArray)
   }
 })
+
+//
+// const $submitCheckout = document.querySelector('.submit-checkout')
+// $submitCheckout.addEventListener('click', (e) => {
+//   console.log(e)
+// })
