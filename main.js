@@ -67,8 +67,6 @@ const createCartCard = element => {
   ])
 }
 
-
-
 const getItemTotal = (array) => {
   let counter = 0
   array.forEach(elem => {
@@ -82,7 +80,7 @@ const createCheckoutDetails = element => {
 }
 
 const showcaseCheckout = array => {
-
+  const checkoutContainerLarge = document.querySelector("[data-view='checkout']")
   const cartContainer1 = createElement('div', {class: 'shipping-cc'} , [
     createElement('input', {class: 'credit-card', placeholder: 'Enter your Credit Card #'}, []),
     createElement('input', {class: 'shipping', placeholder: 'Enter Name'}, []),
@@ -101,10 +99,11 @@ const showcaseCheckout = array => {
   const itemTotalPrice = createElement('div', {class: 'item-total ion-social-bitcoin-outline'}, ["Total: " + getItemTotal(cartArray)])
   const submitCheckout = createElement('button', { class: 'submit-checkout'}, ["Checkout!"])
   checkoutContainer.appendChild(itemTotalCount)
-  checkoutContainer.appendChild(itemTotalPrice);
+  checkoutContainer.appendChild(itemTotalPrice)
   checkoutContainer.appendChild(submitCheckout)
-  cartContainer1.appendChild(checkoutContainer)
-  return cartContainer1
+  checkoutContainerLarge.appendChild(cartContainer1)
+  checkoutContainerLarge.appendChild(checkoutContainer)
+  return checkoutContainerLarge
 }
 
 const showcaseCart = array => {
@@ -122,9 +121,6 @@ const showcaseCart = array => {
   cartContainer.appendChild(itemTotalCount)
   cartContainer.appendChild(itemTotalPrice)
   cartContainer.appendChild(checkoutButton)
-
-
-
   return cartContainer;
 }
 
@@ -249,8 +245,14 @@ $showCart.addEventListener('click', (e) => {
   }
 })
 
-//
-// const $submitCheckout = document.querySelector('.submit-checkout')
-// $submitCheckout.addEventListener('click', (e) => {
-//   console.log(e)
-// })
+const $submitCheckout = document.querySelector("[data-view='checkout']")
+$submitCheckout.addEventListener('click', (e) => {
+  if (e.target.className === "submit-checkout") {
+    alert('Checkout Complete')
+    app.view = 'catalog'
+    removeHidden();
+    while ($submitCheckout.firstChild) {
+      $submitCheckout.removeChild($submitCheckout.firstChild);
+    }
+  }
+})
