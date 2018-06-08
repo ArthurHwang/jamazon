@@ -78,6 +78,10 @@ const getItemTotal = (array) => {
 const createCheckoutDetails = element => {
   return createElement('h2', { class: "checkout-item" }, [element.brand + " " + element.name + ":  $" + element.price])
 }
+const clicked = () => {
+  alert('Checkout Complete')
+  window.location.href = "index.html"
+}
 
 const showcaseCheckout = array => {
   const checkoutContainerLarge = document.querySelector("[data-view='checkout']")
@@ -97,7 +101,7 @@ const showcaseCheckout = array => {
   })
   const itemTotalCount = createElement('div', {class: 'item-total ion-pound'}, ["Total Items: " + array.length])
   const itemTotalPrice = createElement('div', {class: 'item-total ion-social-bitcoin-outline'}, ["Total: " + getItemTotal(cartArray)])
-  const submitCheckout = createElement('button', { class: 'submit-checkout'}, ["Checkout!"])
+  const submitCheckout = createElement('button', { onclick: "clicked()", type: "submit", class: 'submit-checkout', href: "#"}, ["Checkout!"])
   checkoutContainer.appendChild(itemTotalCount)
   checkoutContainer.appendChild(itemTotalPrice)
   checkoutContainer.appendChild(submitCheckout)
@@ -242,17 +246,5 @@ $showCart.addEventListener('click', (e) => {
       $details.removeChild($details.firstChild);
     }
     render(cartArray)
-  }
-})
-
-const $submitCheckout = document.querySelector("[data-view='checkout']")
-$submitCheckout.addEventListener('click', (e) => {
-  if (e.target.className === "submit-checkout") {
-    alert('Checkout Complete')
-    app.view = 'catalog'
-    removeHidden();
-    while ($submitCheckout.firstChild) {
-      $submitCheckout.removeChild($submitCheckout.firstChild);
-    }
   }
 })
