@@ -86,8 +86,10 @@ const showcaseCart = array => {
   })
   const itemTotalCount = createElement('div', {class: 'item-total ion-pound'}, ["Total Items: " + cartArray.length])
   const itemTotalPrice = createElement('div', {class: 'item-total ion-social-bitcoin-outline'}, ["Sub-Total: " + getItemTotal(cartArray)])
+  const checkoutButton = createElement('button', { class: "cart-checkout-button ion-checkmark-circled" }, ["Checkout"])
   cartContainer.appendChild(itemTotalCount)
   cartContainer.appendChild(itemTotalPrice)
+  cartContainer.appendChild(checkoutButton)
   return cartContainer;
 }
 

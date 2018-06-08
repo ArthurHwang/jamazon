@@ -195,6 +195,7 @@ i {
   float: right;
   font-weight: 700;
   color: #FF9800;
+  font-size: 1.5rem;
 }
 
 div[data-view="cart"] .cart-title {
@@ -221,5 +222,17 @@ div[class="item-total ion-social-bitcoin-outline"] {
   padding: 0;
   color: #FF9800;
   font-size: 1.8rem;
-  margin-bottom: 200px;
+  /* margin-bottom: 200px; */
+}
+
+.cart-checkout-button {
+  background-color: #1976D2;
+  border: 3px solid black;
+  width: 100%;
+  height: 50px;
+  font-weight: 700;
+  color: #FF9800;
+  font-size: 1.5rem;
+
+
 }
