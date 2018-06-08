@@ -186,6 +186,14 @@ $cartWrapper.addEventListener('click', (e) => {
   }
   if (e.target.className === "checkout-button ion-checkmark-circled") {
     app.view = 'checkout'
+
+    removeHidden()
+    while ($details.firstChild) {
+      $details.removeChild($details.firstChild);
+    }
+    while($cartWrapper.firstChild) {
+      $cartWrapper.removeChild($cartWrapper.firstChild)
+    }
   }
 })
 
