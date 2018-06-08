@@ -86,7 +86,7 @@ const showcaseCart = array => {
   })
   const itemTotalCount = createElement('div', {class: 'item-total ion-pound'}, ["Total Items: " + cartArray.length])
   const itemTotalPrice = createElement('div', {class: 'item-total ion-social-bitcoin-outline'}, ["Sub-Total: " + getItemTotal(cartArray)])
-  const checkoutButton = createElement('button', { class: "cart-checkout-button ion-checkmark-circled" }, ["Checkout"])
+  const checkoutButton = createElement('button', { class: "checkout-button ion-checkmark-circled" }, ["Checkout"])
   cartContainer.appendChild(itemTotalCount)
   cartContainer.appendChild(itemTotalPrice)
   cartContainer.appendChild(checkoutButton)
@@ -184,6 +184,9 @@ $cartWrapper.addEventListener('click', (e) => {
       $cartWrapper.removeChild($cartWrapper.firstChild)
     }
   }
+  if (e.target.className === "checkout-button ion-checkmark-circled") {
+    
+  }
 })
 
 const $showCart = document.querySelector('[class="cart-item-count ion-ios-cart"]')
@@ -196,5 +199,9 @@ $showCart.addEventListener('click', (e) => {
     }
     render(cartArray)
   }
-  console.log(e.target)
 })
+
+// const $checkoutButton = document.getElementById('checkout-button')
+// $checkoutButton.addEventListener('click', (e) => {
+//   console.log('hi')
+// })
