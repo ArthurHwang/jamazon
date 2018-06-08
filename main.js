@@ -185,7 +185,7 @@ $cartWrapper.addEventListener('click', (e) => {
     }
   }
   if (e.target.className === "checkout-button ion-checkmark-circled") {
-    
+    app.view = 'checkout'
   }
 })
 
@@ -200,8 +200,3 @@ $showCart.addEventListener('click', (e) => {
     render(cartArray)
   }
 })
-
-// const $checkoutButton = document.getElementById('checkout-button')
-// $checkoutButton.addEventListener('click', (e) => {
-//   console.log('hi')
-// })
