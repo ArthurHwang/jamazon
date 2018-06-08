@@ -1,4 +1,5 @@
 const itemsArray = app.catalog.items;
+let cartArray;
 
 const createElement = (tagName, attributes, children) => {
   const element = document.createElement(tagName)
@@ -55,6 +56,40 @@ const showcaseDetails = element => {
     createElement('button', { class: 'ion-bag continue-shopping' }, ['Continue Shopping']),
   ])
 }
+const createCartCard = element => {
+  return createElement('div', { class: "card mb-3", 'data-item-id': element.itemId }, [
+    createElement('img', { class: "card-img-top", src: element.imageUrl }, [""]),
+    createElement('div', { class: "card-body" }, [
+      createElement('ul', { class: "card-title" }, [element.name]),
+      createElement('ul', { class: "card-text" }, [element.brand]),
+      createElement('ul', { class: "card-text ion-social-bitcoin-outline" }, [element.price])
+    ]),
+  ])
+}
+
+const getItemTotal = (array) => {
+  let counter = 0
+  array.forEach(elem => {
+    counter += elem.price
+  })
+  return counter;
+}
+
+const showcaseCart = array => {
+  const cartContainer = createElement('div', {class: 'container'}, [
+    createElement('h1', {class: "cart-title ion-ios-cart"}, ["Your Cart Items"]),
+    createElement('button', { class: 'ion-bag continue-shopping-cart' }, ['Continue Shopping'])
+  ])
+  array.forEach((element) => {
+    const cartCard = createElement('div', { class: 'cart-card' }, [createCartCard(element)])
+    cartContainer.appendChild(cartCard)
+  })
+  const itemTotalCount = createElement('div', {class: 'item-total ion-pound'}, ["Total Items: " + cartArray.length])
+  const itemTotalPrice = createElement('div', {class: 'item-total ion-social-bitcoin-outline'}, ["Sub-Total: " + getItemTotal(cartArray)])
+  cartContainer.appendChild(itemTotalCount)
+  cartContainer.appendChild(itemTotalPrice)
+  return cartContainer;
+}
 
 const getObject = (itemId, itemArray) => {
   return itemArray.filter((elem, index, array) => {
@@ -86,14 +121,16 @@ const render = (array) => {
   if (app.view === "catalog") {
     const enclosure = document.getElementById('app')
     const renderCatalog = document.querySelector("[data-view='catalog']")
-    const appCart = document.getElementById('app-cart')
     renderCatalog.appendChild(showcaseCards(array))
     enclosure.appendChild(cartCount("Items in cart: " + app.cart.items.length))
   }
   if (app.view === "details") {
     const renderDetails = document.querySelector("[data-view='details']")
-    const appCart = document.getElementById('app-cart')
     renderDetails.appendChild(showcaseDetails(array))
+  }
+  if (app.view === "cart") {
+    const renderCart = document.querySelector("[data-view='cart']")
+    renderCart.appendChild(showcaseCart(array))
   }
 }
 
@@ -122,6 +159,7 @@ $details.addEventListener('click', (e) => {
       app.cart.items.push(app.details.item)
     }
     number.textContent = "Items in cart: " + app.cart.items.length
+    cartArray = app.cart.items.reduce((acc, val) => acc.concat(val), [])
   }
   if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block" || e.target.className === "ion-bag continue-shopping") {
     app.view = 'catalog';
@@ -130,4 +168,31 @@ $details.addEventListener('click', (e) => {
       $details.removeChild($details.firstChild);
     }
   }
+})
+
+const $cartWrapper = document.querySelector("[data-view='cart']")
+$cartWrapper.addEventListener('click', (e) => {
+  if (e.target.className === "card-img-top" || "card-text" || "cart" || "card-title") {
+    app.view = 'catalog'
+    removeHidden()
+    while ($details.firstChild) {
+      $details.removeChild($details.firstChild);
+    }
+    while($cartWrapper.firstChild) {
+      $cartWrapper.removeChild($cartWrapper.firstChild)
+    }
+  }
+})
+
+const $showCart = document.querySelector('[class="cart-item-count ion-ios-cart"]')
+$showCart.addEventListener('click', (e) => {
+  if (e.target.className === "cart-item-count ion-ios-cart") {
+    app.view = 'cart'
+    addHidden()
+    while ($details.firstChild) {
+      $details.removeChild($details.firstChild);
+    }
+    render(cartArray)
+  }
+  console.log(e.target)
 })
