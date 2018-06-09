@@ -75,6 +75,7 @@ const getItemTotal = (array) => {
   return counter;
 }
 
+
 const createCheckoutDetails = element => {
   return createElement('h2', { class: "checkout-item" }, [element.brand + " " + element.name + ":  $" + element.price])
 }
@@ -84,43 +85,68 @@ const clicked = () => {
 }
 
 const showcaseCheckout = array => {
-  const checkoutContainerLarge = document.querySelector("[data-view='checkout']")
-  const cartContainer1 = createElement('div', {class: 'shipping-cc'} , [
-    createElement('input', {class: 'credit-card', placeholder: 'Enter your Credit Card #'}, []),
-    createElement('input', {class: 'shipping', placeholder: 'Enter Name'}, []),
-    createElement('input', {class: 'shipping', placeholder: 'Enter Street Address'}, []),
-    createElement('input', {class: 'shipping', placeholder: 'Enter City'}, []),
-    createElement('input', {class: 'shipping', placeholder: 'Enter Postal Code'}, [])
+  const checkoutDetails = createElement('div', { class: "container-form" }, [
+    createElement('div', { class: "inline", id: "checkout" }, [
+      createElement('form', {}, [
+        createElement('div', { class: "form-group" }, [
+          createElement('label', { for: "NameOnCard" }, ["Name on Card"]),
+          createElement('input', { id: "NameOnCard", class: "form-control", type: "text", maxlength: "255" }, [])
+        ]),
+        createElement('div', { class: "form-group" }, [
+          createElement('label', { for: "CreditCardNumber" }, ["Card number"]),
+          createElement('input', { id: "CreditCardNumber", class: "null card-image form-control", type: "text" }, [])
+        ]),
+        createElement('div', { class: "expiry-date-group form-group" }, [
+          createElement('label', { for: "ExpiryDate" }, ["Expiry Date"]),
+          createElement('input', { id: "ExpiryDate", class: "form-control", type: "text", placeholder: "MM / YY", maxlength: "7" }, [])
+        ]),
+        createElement('div', { class: "security-code-group form-group" }, [
+          createElement('label', { for: "SecurityCode" }, ["Security Code"]),
+          createElement('div', { class: "input-container" }, [
+            createElement('input', { id: "SecurityCode", class: "form-control", type: "text" }, [])
+          ])
+        ]),
+        createElement('div', { class: "zip-code-group form-group" }, [
+          createElement('label', { for: "ZIPcode" }, ["ZIP/Postal Code"]),
+          createElement('div', { class: "input-container" }, [
+            createElement('input', { id: "ZIP", class: "form-control", type: "text", maxlength: "10" }, [])
+          ])
+        ]),
+        createElement('button', { id: "PayButton", class: "btn btn-block btn-success submit-button", type: "submit" }, [
+          createElement('span', { class: "submit-button-lock" }, []),
+          createElement('span', { class: "align-middle" }, ["Pay $" + getItemTotal(cartArray)])
+        ])
+      ])
+    ]),
   ])
-  const checkoutContainer = createElement('div', {class: "container"}, [
+
+  const checkoutContainer = createElement('div', { class: "container" }, [
     createElement('h1', {}, ["Checkout Page"])
   ])
   array.forEach((element) => {
-    const checkoutItem = createElement('div', {class: 'showcase-checkout'}, [createCheckoutDetails(element)])
+    const checkoutItem = createElement('div', { class: 'showcase-checkout' }, [createCheckoutDetails(element)])
     checkoutContainer.appendChild(checkoutItem)
   })
-  const itemTotalCount = createElement('div', {class: 'item-total ion-pound'}, ["Total Items: " + array.length])
-  const itemTotalPrice = createElement('div', {class: 'item-total ion-social-bitcoin-outline'}, ["Total: " + getItemTotal(cartArray)])
-  const submitCheckout = createElement('button', { onclick: "clicked()", type: "submit", class: 'submit-checkout', href: "#"}, ["Checkout!"])
+  const itemTotalCount = createElement('div', { class: 'item-total ion-pound' }, ["Total Items: " + array.length])
+  const itemTotalPrice = createElement('div', { class: 'item-total ion-social-bitcoin-outline' }, ["Total: " + getItemTotal(cartArray)])
   checkoutContainer.appendChild(itemTotalCount)
   checkoutContainer.appendChild(itemTotalPrice)
-  checkoutContainer.appendChild(submitCheckout)
-  checkoutContainerLarge.appendChild(cartContainer1)
-  checkoutContainerLarge.appendChild(checkoutContainer)
-  return checkoutContainerLarge
+  checkoutContainer.appendChild(checkoutDetails)
+
+  return checkoutContainer
 }
 
 const showcaseCart = array => {
-  const cartContainer = createElement('div', {class: 'container'}, [
-    createElement('h1', {class: "cart-title ion-ios-cart"}, ["Your Cart Items"]),
+  const cartContainer = createElement('div', { class: 'container' }, [
+    createElement('h1', { class: "cart-title ion-ios-cart" }, ["Your Cart Items"]),
     createElement('button', { class: 'ion-bag continue-shopping-cart' }, ['Continue Shopping'])
   ])
   array.forEach((element) => {
     const cartCard = createElement('div', { class: 'cart-card' }, [createCartCard(element)])
     cartContainer.appendChild(cartCard)
   })
-  const itemTotalCount = createElement('div', {class: 'item-total ion-pound'}, ["Total Items: " + cartArray.length])
-  const itemTotalPrice = createElement('div', {class: 'item-total ion-social-bitcoin-outline'}, ["Sub-Total: " + getItemTotal(cartArray)])
+  const itemTotalCount = createElement('div', { class: 'item-total ion-pound' }, ["Total Items: " + cartArray.length])
+  const itemTotalPrice = createElement('div', { class: 'item-total ion-social-bitcoin-outline' }, ["Sub-Total: " + getItemTotal(cartArray)])
   const checkoutButton = createElement('button', { class: "checkout-button ion-checkmark-circled" }, ["Checkout"])
   cartContainer.appendChild(itemTotalCount)
   cartContainer.appendChild(itemTotalPrice)
@@ -219,7 +245,7 @@ $cartWrapper.addEventListener('click', (e) => {
     while ($details.firstChild) {
       $details.removeChild($details.firstChild);
     }
-    while($cartWrapper.firstChild) {
+    while ($cartWrapper.firstChild) {
       $cartWrapper.removeChild($cartWrapper.firstChild)
     }
   }
@@ -229,7 +255,7 @@ $cartWrapper.addEventListener('click', (e) => {
     while ($details.firstChild) {
       $details.removeChild($details.firstChild);
     }
-    while($cartWrapper.firstChild) {
+    while ($cartWrapper.firstChild) {
       $cartWrapper.removeChild($cartWrapper.firstChild)
     }
     addHidden()
@@ -247,4 +273,17 @@ $showCart.addEventListener('click', (e) => {
     }
     render(cartArray)
   }
+})
+
+const $checkout = document.querySelector("[data-view='checkout']")
+$checkout.addEventListener('submit', (e) => {
+  e.preventDefault()
+  app.view = 'catalog'
+  while ($checkout.firstChild) {
+    $checkout.removeChild($checkout.firstChild)
+  }
+  alert("Checkout Completed")
+  app.cart.items = []
+  $showCart.innerHTML = "Items in cart: " + app.cart.items.length
+  removeHidden();
 })
