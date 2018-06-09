@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+#app {
+  height: 1710px;
+}
+
 body {
   background-color: white;
   margin: 0;
@@ -84,7 +88,6 @@ li {
 .cart-wrapper {
   text-align: right;
   background-color: #A1887F;
-  /* margin-top: 434px; */
 }
 
 .cart-item-count {
@@ -144,27 +147,34 @@ footer {
   float: right;
 }
 
-.social-links li a:link, .social-links li a:visited {
+.social-links li a:link,
+.social-links li a:visited {
   font-size: 160%;
 }
 
-.footer-nav li, .social-links li {
+.footer-nav li,
+.social-links li {
   display: inline-block;
   margin-right: 20px;
 }
 
-.footer-nav li:last-child, .social-links li:last-child {
+.footer-nav li:last-child,
+.social-links li:last-child {
   margin: 0;
 }
 
-.footer-nav li a:link, .footer-nav li a:visited, .social-links li a:link, .social-links li a:visited {
+.footer-nav li a:link,
+.footer-nav li a:visited,
+.social-links li a:link,
+.social-links li a:visited {
   text-decoration: none;
   border: 0;
   color: #FAFAFA;
   transition: color 0.2s;
 }
 
-.footer-nav li a:hover, .footer-nav li a:active {
+.footer-nav li a:hover,
+.footer-nav li a:active {
   color: #FF9800;
 }
 
@@ -195,6 +205,11 @@ i {
   float: right;
   font-weight: 700;
   color: #FF9800;
+  font-size: 1.5rem;
+}
+
+div[data-view="cart"] {
+  margin-top: -65px;
 }
 
 div[data-view="cart"] .cart-title {
@@ -221,5 +236,55 @@ div[class="item-total ion-social-bitcoin-outline"] {
   padding: 0;
   color: #FF9800;
   font-size: 1.8rem;
-  margin-bottom: 200px;
+}
+
+.checkout-button {
+  background-color: #1976D2;
+  border: 3px solid black;
+  width: 100%;
+  height: 50px;
+  font-weight: 700;
+  color: #FF9800;
+  font-size: 1.5rem;
+  margin-bottom: 300px;
+}
+
+.shipping-cc .credit-card,
+.shipping-cc .shipping {
+  text-align: center;
+  margin: auto;
+  display: block;
+  width: 50%;
+  font-size: 1.2rem;
+  border-left: none;
+  border-right: none;
+}
+
+.submit-checkout {
+  background-color: #1976D2;
+  border: 3px solid black;
+  width: 100%;
+  height: 50px;
+  font-weight: 700;
+  color: #FF9800;
+  font-size: 1.5rem;
+}
+
+.checkout-item {
+  background-color: #64B5F6;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+div[data-view="checkout"] h1 {
+  margin: 0;
+}
+
+.container-form {
+  position: relative;
+  left: 25%;
+  width: 50%;
+  font-weight: 700;
+  font-size: 1.5rem;
 }
