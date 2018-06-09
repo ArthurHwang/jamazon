@@ -1,6 +1,3 @@
-const itemsArray = app.catalog.items;
-let cartArray;
-
 const createElement = (tagName, attributes, children) => {
   const element = document.createElement(tagName)
   for (var key in attributes) {
@@ -34,8 +31,7 @@ const showcaseCards = array => {
   const mainContainer = createElement('div', { class: 'container' }, [])
   const row = createElement('div', { class: 'row justify-content-center' }, [])
   array.forEach((element) => {
-    const col = createElement('div', { class: 'col-sm-4 py-2 d-flex align-items-stretch' }, [createCard(element)])
-    row.appendChild(col);
+    row.appendChild(createElement('div', { class: 'col-sm-4 py-2 d-flex align-items-stretch' }, [createCard(element)]));
   })
   mainContainer.appendChild(row);
   return mainContainer;
@@ -56,8 +52,9 @@ const showcaseDetails = element => {
     createElement('button', { class: 'ion-bag continue-shopping' }, ['Continue Shopping']),
   ])
 }
+
 const createCartCard = element => {
-  return createElement('div', { class: "card mb-3", 'data-item-id': element.itemId }, [
+  return createElement('div', { class: "card", 'data-item-id': element.itemId }, [
     createElement('img', { class: "card-img-top", src: element.imageUrl }, [""]),
     createElement('div', { class: "card-body" }, [
       createElement('ul', { class: "card-title" }, [element.name]),
@@ -75,16 +72,12 @@ const getItemTotal = (array) => {
   return counter;
 }
 
-
-const createCheckoutDetails = element => {
-  return createElement('h2', { class: "checkout-item" }, [element.brand + " " + element.name + ":  $" + element.price])
-}
-const clicked = () => {
-  alert('Checkout Complete')
-  window.location.href = "index.html"
-}
-
 const showcaseCheckout = array => {
+  const checkoutContainer = createElement('div', { class: "container" }, [
+    createElement('h1', {}, ["Checkout Page"])
+  ])
+  const itemTotalCount = createElement('div', { class: 'item-total ion-pound' }, ["Total Items: " + array.length])
+  const itemTotalPrice = createElement('div', { class: 'item-total ion-social-bitcoin-outline' }, ["Total: " + getItemTotal(cartArray)])
   const checkoutDetails = createElement('div', { class: "container-form" }, [
     createElement('div', { class: "inline", id: "checkout" }, [
       createElement('form', {}, [
@@ -119,38 +112,28 @@ const showcaseCheckout = array => {
       ])
     ]),
   ])
-
-  const checkoutContainer = createElement('div', { class: "container" }, [
-    createElement('h1', {}, ["Checkout Page"])
-  ])
   array.forEach((element) => {
-    const checkoutItem = createElement('div', { class: 'showcase-checkout' }, [createCheckoutDetails(element)])
-    checkoutContainer.appendChild(checkoutItem)
+    checkoutContainer.appendChild(createElement('div', { class: 'showcase-checkout' }, [
+      createElement('h2', { class: "checkout-item" }, [element.brand + " " + element.name + ":  $" + element.price])
+    ]))
   })
-  const itemTotalCount = createElement('div', { class: 'item-total ion-pound' }, ["Total Items: " + array.length])
-  const itemTotalPrice = createElement('div', { class: 'item-total ion-social-bitcoin-outline' }, ["Total: " + getItemTotal(cartArray)])
   checkoutContainer.appendChild(itemTotalCount)
   checkoutContainer.appendChild(itemTotalPrice)
   checkoutContainer.appendChild(checkoutDetails)
-
   return checkoutContainer
 }
 
 const showcaseCart = array => {
   const cartContainer = createElement('div', { class: 'container' }, [
     createElement('h1', { class: "cart-title ion-ios-cart" }, ["Your Cart Items"]),
-    createElement('button', { class: 'ion-bag continue-shopping-cart' }, ['Continue Shopping'])
+    createElement('div', { class: 'item-total ion-pound' }, ["Total Items: " + cartArray.length]),
+    createElement('div', { class: 'item-total ion-social-bitcoin-outline' }, ["Sub-Total: " + getItemTotal(cartArray)])
   ])
   array.forEach((element) => {
-    const cartCard = createElement('div', { class: 'cart-card' }, [createCartCard(element)])
-    cartContainer.appendChild(cartCard)
+    cartContainer.appendChild(createElement('div', { class: 'cart-card' }, [createCartCard(element)]))
   })
-  const itemTotalCount = createElement('div', { class: 'item-total ion-pound' }, ["Total Items: " + cartArray.length])
-  const itemTotalPrice = createElement('div', { class: 'item-total ion-social-bitcoin-outline' }, ["Sub-Total: " + getItemTotal(cartArray)])
-  const checkoutButton = createElement('button', { class: "checkout-button ion-checkmark-circled" }, ["Checkout"])
-  cartContainer.appendChild(itemTotalCount)
-  cartContainer.appendChild(itemTotalPrice)
-  cartContainer.appendChild(checkoutButton)
+  cartContainer.appendChild(createElement('button', { class: 'ion-bag continue-shopping-cart' }, ['Continue Shopping']))
+  cartContainer.appendChild(createElement('button', { class: "checkout-button ion-checkmark-circled" }, ["Checkout"]))
   return cartContainer;
 }
 
@@ -161,15 +144,13 @@ const getObject = (itemId, itemArray) => {
 }
 
 const addHidden = () => {
-  const data = document.querySelectorAll('[data-item-id]')
-  data.forEach((element, index, array) => {
+  document.querySelectorAll('[data-item-id]').forEach((element, index, array) => {
     element.style.display = 'none'
   })
 }
 
 const removeHidden = () => {
-  const data = document.querySelectorAll('[data-item-id]')
-  data.forEach((element, index, array) => {
+  document.querySelectorAll('[data-item-id]').forEach((element, index, array) => {
     element.style.display = 'block'
   })
 }
@@ -182,22 +163,17 @@ const cartCount = (cartItem) => {
 
 const render = (array) => {
   if (app.view === "catalog") {
-    const enclosure = document.getElementById('app')
-    const renderCatalog = document.querySelector("[data-view='catalog']")
-    renderCatalog.appendChild(showcaseCards(array))
-    enclosure.appendChild(cartCount("Items in cart: " + app.cart.items.length))
+    document.getElementById('app').appendChild(cartCount("Items in cart: " + app.cart.items.length))
+    document.querySelector("[data-view='catalog']").appendChild(showcaseCards(array))
   }
   if (app.view === "details") {
-    const renderDetails = document.querySelector("[data-view='details']")
-    renderDetails.appendChild(showcaseDetails(array))
+    document.querySelector("[data-view='details']").appendChild(showcaseDetails(array))
   }
   if (app.view === "cart") {
-    const renderCart = document.querySelector("[data-view='cart']")
-    renderCart.appendChild(showcaseCart(array))
+    document.querySelector("[data-view='cart']").appendChild(showcaseCart(array))
   }
   if (app.view === "checkout") {
-    const renderCheckout = document.querySelector("[data-view='checkout']")
-    renderCheckout.appendChild(showcaseCheckout(array))
+    document.querySelector("[data-view='checkout']").appendChild(showcaseCheckout(array))
   }
 }
 
@@ -228,7 +204,7 @@ $details.addEventListener('click', (e) => {
     number.textContent = "Items in cart: " + app.cart.items.length
     cartArray = app.cart.items.reduce((acc, val) => acc.concat(val), [])
   }
-  if (e.target.getAttribute('data-view') === 'details' || e.target.className === "center-block" || e.target.className === "ion-bag continue-shopping") {
+  if (e.target.className !== "cart-button") {
     app.view = 'catalog';
     removeHidden()
     while ($details.firstChild) {
@@ -239,7 +215,7 @@ $details.addEventListener('click', (e) => {
 
 const $cartWrapper = document.querySelector("[data-view='cart']")
 $cartWrapper.addEventListener('click', (e) => {
-  if (e.target.className === "card-img-top" || "card-text" || "cart" || "card-title") {
+  if (e.target.className !== "checkout-button ion-checkmark-circled") {
     app.view = 'catalog'
     removeHidden()
     while ($details.firstChild) {

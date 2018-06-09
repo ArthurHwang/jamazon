@@ -100,3 +100,6 @@ const app = {
     items: []
   }
 }
+
+const itemsArray = app.catalog.items;
+let cartArray;
